@@ -5,19 +5,34 @@
 
 package maeser.rookie.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 
 public class ExampleSubsystem extends SubsystemBase
 {
+    private final PWMSparkMax m_pwmSparkMax = new PWMSparkMax(0);
     /** Creates a new ExampleSubsystem. */
-    public ExampleSubsystem() {}
-    
-    
+    public ExampleSubsystem() {
+    }
+
+    public void set(double speed){
+        m_pwmSparkMax.set(speed);
+    }
+
+    public double get(){
+        return m_pwmSparkMax.get();
+    }
+
+
+
     @Override
     public void periodic()
     {
+
         // This method will be called once per scheduler run
     }
     
