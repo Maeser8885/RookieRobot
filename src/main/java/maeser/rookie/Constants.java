@@ -17,5 +17,7 @@ public final class Constants {
     public static final int kIntakeMotorLeftPort = 0;
     public static final int kIntakeMotorRightPort = 1;
     public static final int kIntakeMotorWinchPort = 2;
+    public static final int kLSTopPort = 1;
+    public static final int kLSBotPort = 1;
 
 }
