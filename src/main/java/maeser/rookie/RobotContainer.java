@@ -9,11 +9,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import maeser.rookie.commands.ExampleCommand;
 import maeser.rookie.subsystems.ExampleSubsystem;
-
+import maeser.rookie.subsystems.MecanumDriveSubsystem;
 
 
 /**
@@ -29,6 +30,7 @@ public class RobotContainer
     
     private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
 
+    private final MecanumDriveSubsystem mecanumDrive = new MecanumDriveSubsystem();
     Joystick flightStick = new Joystick(0);
     JoystickButton motorButton = new JoystickButton(flightStick,2);
     
@@ -37,6 +39,19 @@ public class RobotContainer
     {
         // Configure the button bindings
         configureButtonBindings();
+
+
+        mecanumDrive.setDefaultCommand(
+            // A split-stick arcade command, with forward/backward controlled by the left
+            // hand, and turning controlled by the right.
+            new RunCommand(
+                () ->
+                    mecanumDrive.drive(
+                        flightStick.getY(),
+                        flightStick.getTwist(),
+                        flightStick.getY(),
+                        false),
+                mecanumDrive));
     }
     
     
@@ -48,10 +63,10 @@ public class RobotContainer
      */
     private void configureButtonBindings()
     {
-        motorButton.toggleWhenPressed(new StartEndCommand(
+        /**motorButton.toggleWhenPressed(new StartEndCommand(
                 () -> exampleSubsystem.set(1),
                 () -> exampleSubsystem.set(0),
-                exampleSubsystem));
+                exampleSubsystem));**/
         // Add button to command mappings here.
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
 

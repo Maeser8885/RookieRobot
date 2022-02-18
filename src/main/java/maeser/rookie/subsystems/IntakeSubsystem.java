@@ -9,10 +9,12 @@ public class IntakeSubsystem extends SubsystemBase {
     private PWMSparkMax intakePWMSparkLeft = new PWMSparkMax(Constants.kIntakeMotorLeftPort);
     private PWMSparkMax intakePWMSparkRight = new PWMSparkMax(Constants.kIntakeMotorRightPort);
     private PWMSparkMax intakeWinch = new PWMSparkMax(Constants.kIntakeMotorWinchPort);
+
     public enum IntakeStatuses{WAITING,LIFTING,DROPPING}
     public IntakeStatuses intakeStatus = IntakeStatuses.WAITING;
     public DigitalInput topSwitch = new DigitalInput(Constants.kLSTopPort);
     public DigitalInput bottomSwitch = new DigitalInput(Constants.kLSBotPort);
+
     public IntakeSubsystem(){
         intakePWMSparkRight.setInverted(true); // so then we can just set both to same value
     }
