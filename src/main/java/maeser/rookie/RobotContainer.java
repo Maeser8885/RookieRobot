@@ -26,9 +26,9 @@ import maeser.rookie.subsystems.MecanumDriveSubsystem;
 public class RobotContainer
 {
     // The robot's subsystems and commands are defined here...
-    private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+    //private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
     
-    private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
+    //private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
 
     private final MecanumDriveSubsystem mecanumDrive = new MecanumDriveSubsystem();
     Joystick flightStick = new Joystick(0);
@@ -47,9 +47,9 @@ public class RobotContainer
             new RunCommand(
                 () ->
                     mecanumDrive.drive(
+                        flightStick.getX(),
                         flightStick.getY(),
                         flightStick.getTwist(),
-                        flightStick.getY(),
                         false),
                 mecanumDrive));
     }
@@ -81,6 +81,6 @@ public class RobotContainer
     public Command getAutonomousCommand()
     {
         // An ExampleCommand will run in autonomous
-        return autoCommand;
+        return null;
     }
 }

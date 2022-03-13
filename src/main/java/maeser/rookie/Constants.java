@@ -18,13 +18,15 @@ public final class Constants {
     public static final int kIntakeMotorRightPort = 5;
     public static final int kIntakeMotorWinchPort = 6;
 
+    public static final double kMotorSpeedDampening = 0.9;
+
     public static final int kLSTopPort = 1;
     public static final int kLSBotPort = 1;
 
-    public static final int kDriveMotorFLPort = 0;
-    public static final int kDriveMotorFRPort = 1;
+    public static final int kDriveMotorFLPort = 3;
+    public static final int kDriveMotorFRPort = 0;
     public static final int kDriveMotorRLPort = 2;
-    public static final int kDriveMotorRRPort = 3;
+    public static final int kDriveMotorRRPort = 1;
 
 
 }

@@ -14,13 +14,15 @@ public class MecanumDriveSubsystem extends SubsystemBase {
     private final MecanumDrive mecanumDrive = new MecanumDrive(driveFLMotor,driveRLMotor,driveFRMotor,driveRRMotor);
 
     public MecanumDriveSubsystem(){
-
+        driveFRMotor.setInverted(true);
+        driveRRMotor.setInverted(true);
     }
     public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
         if (fieldRelative) {
            // mecanumDrive.driveCartesian(ySpeed, xSpeed, rot, -m_gyro.getAngle());
         } else {
-            mecanumDrive.driveCartesian(ySpeed, xSpeed, rot);
+            //TODO make rotation 0 unless above set dampening range.
+            mecanumDrive.driveCartesian(ySpeed*Constants.kMotorSpeedDampening, xSpeed*Constants.kMotorSpeedDampening, rot*Constants.kMotorSpeedDampening);
         }
     }
 }
