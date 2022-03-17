@@ -10,10 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import maeser.rookie.commands.ExampleCommand;
-import maeser.rookie.subsystems.ExampleSubsystem;
 import maeser.rookie.subsystems.MecanumDriveSubsystem;
 
 
@@ -30,7 +27,7 @@ public class RobotContainer
     
     //private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
 
-    private final MecanumDriveSubsystem mecanumDrive = new MecanumDriveSubsystem();
+    private final MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem();
     Joystick flightStick = new Joystick(0);
     JoystickButton motorButton = new JoystickButton(flightStick,2);
     
@@ -41,20 +38,19 @@ public class RobotContainer
         configureButtonBindings();
 
 
-        mecanumDrive.setDefaultCommand(
+        mecanumDriveSubsystem.setDefaultCommand(
             // A split-stick arcade command, with forward/backward controlled by the left
             // hand, and turning controlled by the right.
             new RunCommand(
                 () ->
-                    mecanumDrive.drive(
+                    mecanumDriveSubsystem.drive(
                         flightStick.getX(),
                         flightStick.getY(),
-                        flightStick.getTwist(),
+                        Helpers.adjustTwist(flightStick.getTwist()),
                         false),
-                mecanumDrive));
+                    mecanumDriveSubsystem));
     }
-    
-    
+
     /**
      * Use this method to define your button->command mappings. Buttons can be created by
      * instantiating a {@link GenericHID} or one of its subclasses ({@link

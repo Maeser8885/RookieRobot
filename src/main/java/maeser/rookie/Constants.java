@@ -14,19 +14,24 @@ package maeser.rookie;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int kIntakeMotorLeftPort = 4;
-    public static final int kIntakeMotorRightPort = 5;
-    public static final int kIntakeMotorWinchPort = 6;
 
+    // Multipliers
     public static final double kMotorSpeedDampening = 0.9;
+    public static final double kTiltDampening = 0.5;
 
+    // DIO ports
     public static final int kLSTopPort = 1;
-    public static final int kLSBotPort = 1;
+    public static final int kLSBotPort = 0;
 
+    // Motor PWM Ports
+        //Wheels
     public static final int kDriveMotorFLPort = 3;
     public static final int kDriveMotorFRPort = 0;
     public static final int kDriveMotorRLPort = 2;
     public static final int kDriveMotorRRPort = 1;
-
+        //Intake
+    public static final int kIntakeMotorLeftPort = 4;
+    public static final int kIntakeMotorRightPort = 5;
+    public static final int kIntakeMotorWinchPort = 6;
 
 }
