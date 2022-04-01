@@ -5,6 +5,7 @@
 
 package maeser.rookie;
 
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -26,17 +27,17 @@ public class RobotContainer
     //private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
     
     //private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
-
-    private final MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem();
+    private final ADIS16470_IMU gyro = new ADIS16470_IMU();
+    private final MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem(gyro);
     Joystick flightStick = new Joystick(0);
     JoystickButton motorButton = new JoystickButton(flightStick,2);
+
     
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()
     {
         // Configure the button bindings
         configureButtonBindings();
-
 
         mecanumDriveSubsystem.setDefaultCommand(
             // A split-stick arcade command, with forward/backward controlled by the left
@@ -47,7 +48,7 @@ public class RobotContainer
                         flightStick.getX(),
                         flightStick.getY(),
                         Helpers.adjustTwist(flightStick.getTwist()),
-                        false),
+                        true),
                     mecanumDriveSubsystem));
     }
 
