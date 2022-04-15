@@ -21,7 +21,7 @@ public final class Constants {
     public static final double kWinchDampening = 0.25;
     public static final double kIntakeDampening = 1;
     public static final double kElevatorDampening = 0.9;
-    public static final double kDisabledIntakeDampening = 0.3;
+    public static final double kDisabledIntakeDampening = 1;
 
     // DIO ports
     public static final int kLSTopPort = 1;
