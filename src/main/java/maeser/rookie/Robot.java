@@ -6,9 +6,14 @@
 package maeser.rookie;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import maeser.rookie.commands.RunElevator;
 import maeser.rookie.subsystems.ExampleSubsystem;
+
+import java.util.ArrayList;
 
 
 /**
@@ -23,7 +28,7 @@ public class Robot extends TimedRobot
     private Command autonomousCommand;
     
     private RobotContainer robotContainer;
-    
+
     
     /**
      * This method is run when the robot is first started up and should be used for any
@@ -109,10 +114,36 @@ public class Robot extends TimedRobot
     {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
+        /**robotContainer.gyro.reset();
+        //Instantiate the lists for position formula
+        robotContainer.timelist.clear();
+        robotContainer.timelist.add(0.0);
+        robotContainer.accellist.clear();
+        robotContainer.accellist.add(0.0);
+        robotContainer.velocitylist.clear();
+        robotContainer.velocitylist.add(0.0);
+        robotContainer.distancelist.clear();
+        robotContainer.distancelist.add(0.0);
+        robotContainer.gameTimer.reset();
+        robotContainer.gameTimer.start();**/
+        //CommandScheduler.getInstance().schedule(new RunElevator(robotContainer.elevatorSubsystem, 2.0));
     }
     
     
     /** This method is called periodically during test mode. */
     @Override
-    public void testPeriodic() {}
+    public void testPeriodic() {
+        /**double currentTime = robotContainer.gameTimer.get();
+        double currentAcceleration = robotContainer.gyro.getAccelX();
+        robotContainer.timelist.add(currentTime);
+        robotContainer.accellist.add(currentAcceleration);
+        robotContainer.velocitylist.add(Helpers.timedTrapezoidRiemannSum(robotContainer.accellist,robotContainer.timelist));
+        robotContainer.distancelist.add(Helpers.timedTrapezoidRiemannSum(robotContainer.velocitylist,robotContainer.timelist));
+        SmartDashboard.putNumber("Acceleration",currentAcceleration);
+        SmartDashboard.putNumber("Estimated Distance", robotContainer.distancelist.get(robotContainer.distancelist.size() - 1));
+        **/
+        //robotContainer.intakeSubsystem.setIntakeSpeed(Constants.kIntakeDampening);
+        robotContainer.elevatorSubsystem.setPulleyMotor(Constants.kElevatorDampening);
+
+    }
 }

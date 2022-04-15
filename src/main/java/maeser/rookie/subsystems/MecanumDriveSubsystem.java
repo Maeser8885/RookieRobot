@@ -28,12 +28,12 @@ public class MecanumDriveSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("ySpeed",ySpeed);
             SmartDashboard.putNumber("rot",rot);
             SmartDashboard.putNumber("angle", gyro.getAngle());
-            mecanumDrive.driveCartesian(-1 * ySpeed*Constants.kMotorSpeedDampening, xSpeed*Constants.kMotorSpeedDampening, rot*Constants.kMotorSpeedDampening, -gyro.getAngle());
+            mecanumDrive.driveCartesian(ySpeed*Constants.kMotorSpeedDampening, xSpeed*Constants.kMotorSpeedDampening, rot*Constants.kMotorSpeedDampening, gyro.getAngle());
         } else {
             SmartDashboard.putNumber("xSpeed",xSpeed);
             SmartDashboard.putNumber("ySpeed",ySpeed);
             SmartDashboard.putNumber("rot",rot);
-            mecanumDrive.driveCartesian(-1 * ySpeed*Constants.kMotorSpeedDampening, xSpeed*Constants.kMotorSpeedDampening, rot*Constants.kMotorSpeedDampening);
+            mecanumDrive.driveCartesian(ySpeed*Constants.kMotorSpeedDampening, xSpeed*Constants.kMotorSpeedDampening, rot*Constants.kMotorSpeedDampening);
         }
     }
 }

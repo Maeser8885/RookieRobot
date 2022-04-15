@@ -5,14 +5,17 @@
 
 package maeser.rookie;
 
-import edu.wpi.first.wpilibj.ADIS16470_IMU;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import maeser.rookie.commands.AutoCommandGroup;
+import maeser.rookie.subsystems.ElevatorSubsystem;
+import maeser.rookie.subsystems.IntakeSubsystem;
 import maeser.rookie.subsystems.MecanumDriveSubsystem;
+
+import java.util.ArrayList;
 
 
 /**
@@ -25,31 +28,63 @@ public class RobotContainer
 {
     // The robot's subsystems and commands are defined here...
     //private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-    
+
     //private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
-    private final ADIS16470_IMU gyro = new ADIS16470_IMU();
-    private final MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem(gyro);
+    public final ADIS16470_IMU gyro = new ADIS16470_IMU();
+    public final MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem(gyro);
+    public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    public final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
     Joystick flightStick = new Joystick(0);
-    JoystickButton motorButton = new JoystickButton(flightStick,2);
+    XboxController xboxController = new XboxController(1);
+    JoystickButton Xbutton = new JoystickButton(xboxController, XboxController.Button.kX.value);
+    public ArrayList<Double> timelist = new ArrayList<Double>();
+    public ArrayList<Double> accellist = new ArrayList<Double>();
+    public ArrayList<Double> velocitylist = new ArrayList<Double>();
+    public ArrayList<Double> distancelist = new ArrayList<Double>();
 
-    
-    /** The container for the robot. Contains subsystems, OI devices, and commands. */
+    public Timer gameTimer = new Timer();
+
+                            /** The container for the robot. Contains subsystems, IO devices, and commands. */
     public RobotContainer()
-    {
-        // Configure the button bindings
-        configureButtonBindings();
+        {
+            // Configure the button bindings
+            configureButtonBindings();
 
-        mecanumDriveSubsystem.setDefaultCommand(
-            // A split-stick arcade command, with forward/backward controlled by the left
-            // hand, and turning controlled by the right.
-            new RunCommand(
-                () ->
-                    mecanumDriveSubsystem.drive(
-                        flightStick.getX(),
-                        flightStick.getY(),
-                        Helpers.adjustTwist(flightStick.getTwist()),
-                        true),
+            mecanumDriveSubsystem.setDefaultCommand(
+                    // A split-stick arcade command, with forward/backward controlled by the left
+                    // hand, and turning controlled by the right.
+                    new RunCommand(
+                            () ->
+                                    mecanumDriveSubsystem.drive(
+                                            flightStick.getX(),
+                                            -flightStick.getY(),
+                                            Helpers.adjustTwist(flightStick.getTwist()),
+                                            true),
                     mecanumDriveSubsystem));
+
+            intakeSubsystem.setDefaultCommand(
+                    new RunCommand(
+                            () -> {
+                                    intakeSubsystem.setWinchSpeed(xboxController.getLeftY() * Constants.kWinchDampening);
+                                    intakeSubsystem.setIntakeSpeed(xboxController.getRightY() * Constants.kIntakeDampening);
+                            }, intakeSubsystem
+
+                    )
+            );
+
+            elevatorSubsystem.setDefaultCommand(
+                    new RunCommand(
+                            () -> elevatorSubsystem.setPulleyMotor(-xboxController.getLeftTriggerAxis() * Constants.kElevatorDampening * -Helpers.booleanToDouble(xboxController.getRightBumper())), elevatorSubsystem
+                    )
+            );
+            Xbutton.toggleWhenActive(
+                    new RunCommand(
+                            gyro::reset
+                    )
+            );
+
+            CameraServer.startAutomaticCapture();
+
     }
 
     /**
@@ -66,7 +101,6 @@ public class RobotContainer
                 exampleSubsystem));**/
         // Add button to command mappings here.
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
-
     }
     
     
@@ -78,6 +112,7 @@ public class RobotContainer
     public Command getAutonomousCommand()
     {
         // An ExampleCommand will run in autonomous
-        return null;
+        return new AutoCommandGroup(mecanumDriveSubsystem,elevatorSubsystem);
     }
+
 }

@@ -16,8 +16,12 @@ package maeser.rookie;
 public final class Constants {
 
     // Multipliers
-    public static final double kMotorSpeedDampening = 0.9;
-    public static final double kTiltDampening = 0.5;
+     public static final double kMotorSpeedDampening = 1;
+    public static final double kTiltDampening = 0.3;
+    public static final double kWinchDampening = 0.25;
+    public static final double kIntakeDampening = 1;
+    public static final double kElevatorDampening = 0.9;
+    public static final double kDisabledIntakeDampening = 0.3;
 
     // DIO ports
     public static final int kLSTopPort = 1;
@@ -29,9 +33,15 @@ public final class Constants {
     public static final int kDriveMotorFRPort = 0;
     public static final int kDriveMotorRLPort = 2;
     public static final int kDriveMotorRRPort = 1;
+
         //Intake
-    public static final int kIntakeMotorLeftPort = 4;
-    public static final int kIntakeMotorRightPort = 5;
-    public static final int kIntakeMotorWinchPort = 6;
+    public static final int kIntakeMotorLeftCAN = 2;
+    public static final int kIntakeMotorRightCAN = 3;
+    public static final int kIntakeMotorWinchCAN = 1;
+        //Elevator
+    public static final int kPulleyMotorCAN = 4;
+
+    // Autonomous stuff
+    public static final double kAutonomousTime = 2.0;
 
 }
