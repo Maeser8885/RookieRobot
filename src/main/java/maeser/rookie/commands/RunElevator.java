@@ -27,7 +27,7 @@ public class RunElevator extends CommandBase {
 
     @Override
     public void execute() {
-        this.elevatorSubsystem.setPulleyMotor(-1);
+        this.elevatorSubsystem.setPulleyMotor(-1 * Constants.kElevatorDampening);
     }
 
     @Override

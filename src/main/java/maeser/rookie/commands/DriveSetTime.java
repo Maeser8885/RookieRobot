@@ -30,13 +30,13 @@ public class DriveSetTime extends CommandBase {
 
     @Override
     public void execute() {
-        mecanumDriveSubsystem.drive(0,speed * direction,0,true);
+        mecanumDriveSubsystem.drive(0,speed * direction,0,true,false);
     }
 
     @Override
     public void end(boolean interrupted) {
         timer.stop();
-        mecanumDriveSubsystem.drive(0,0,0,true);
+        mecanumDriveSubsystem.drive(0,0,0,true, false);
 
     }
 

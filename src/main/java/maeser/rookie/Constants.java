@@ -17,10 +17,10 @@ public final class Constants {
 
     // Multipliers
      public static final double kMotorSpeedDampening = 1;
-    public static final double kTiltDampening = 0.3;
+    public static final double kTwistDampening = 0.5;
     public static final double kWinchDampening = 0.25;
     public static final double kIntakeDampening = 1;
-    public static final double kElevatorDampening = 0.9;
+    public static final double kElevatorDampening = 0.7; //.0.7
     public static final double kDisabledIntakeDampening = 1;
 
     // DIO ports
@@ -42,6 +42,6 @@ public final class Constants {
     public static final int kPulleyMotorCAN = 4;
 
     // Autonomous stuff
-    public static final double kAutonomousTime = 2.0;
+    public static final double kAutonomousTime = 1.5;
 
 }

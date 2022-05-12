@@ -3,14 +3,11 @@ package maeser.rookie;
 import java.util.ArrayList;
 
 public class Helpers {
-    public static double adjustTwist(double twist){
-        if (Math.abs(twist) >= Constants.kTiltDampening){
-            int sign = Integer.signum((int) twist); // get the sign
-            double modified = Math.abs(twist) - Constants.kTiltDampening; // adjust the value
-            return sign * modified; // reapply the sign
-
+    public static double deadzonedValue(double value, double deadzone) {
+        if (Math.abs(value) < deadzone) {
+            return 0.0;
         } else {
-            return 0;
+            return value - (Math.signum(value) * deadzone);
         }
     }
     public static double timedTrapezoidRiemannSum(ArrayList<Double> list, ArrayList<Double> time){
@@ -27,5 +24,6 @@ public class Helpers {
             return -1.0;
         }
     }
+
 
 }

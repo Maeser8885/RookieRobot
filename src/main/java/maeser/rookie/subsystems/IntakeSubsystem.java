@@ -12,7 +12,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
     public IntakeSubsystem(){
-        intakePWMSparkRight.setInverted(true); // so then we can just set both to same value
+        intakePWMSparkLeft.setInverted(true); // so then we can just set both to same value
     }
 
     // MAKE LIMIT SWITCHES!!!11!11!

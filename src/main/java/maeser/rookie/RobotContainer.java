@@ -58,8 +58,9 @@ public class RobotContainer
                                     mecanumDriveSubsystem.drive(
                                             flightStick.getX(),
                                             -flightStick.getY(),
-                                            Helpers.adjustTwist(flightStick.getTwist()),
-                                            true),
+                                            Helpers.deadzonedValue(flightStick.getTwist(), Constants.kTwistDampening),
+                                            true,
+                                            false),
                     mecanumDriveSubsystem));
 
             intakeSubsystem.setDefaultCommand(

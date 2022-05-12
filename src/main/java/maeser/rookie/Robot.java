@@ -101,6 +101,7 @@ public class Robot extends TimedRobot
         {
             autonomousCommand.cancel();
         }
+        robotContainer.gyro.reset();
     }
     
     
@@ -143,7 +144,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Estimated Distance", robotContainer.distancelist.get(robotContainer.distancelist.size() - 1));
         **/
         //robotContainer.intakeSubsystem.setIntakeSpeed(Constants.kIntakeDampening);
-        robotContainer.elevatorSubsystem.setPulleyMotor(Constants.kElevatorDampening);
+        //robotContainer.elevatorSubsystem.setPulleyMotor(Constants.kElevatorDampening);
 
     }
 }
